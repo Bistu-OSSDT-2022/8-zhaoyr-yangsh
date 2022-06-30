@@ -1,5 +1,11 @@
-*.s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
-*~
+# pycharm
+*.xml
+*/.idea/
+.idea
+*.pyc
+*.png
+
+
+# model
+*ckpt*
+checkpoint
