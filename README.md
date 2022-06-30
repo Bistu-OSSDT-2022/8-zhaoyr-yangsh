@@ -18,3 +18,11 @@ python3 ./utils/make_data.py
 2.训练网络
 
 python3 train.py   
+INSTALL
+
+FAQ
+
+CREDITS
+
+HISTORY
+
