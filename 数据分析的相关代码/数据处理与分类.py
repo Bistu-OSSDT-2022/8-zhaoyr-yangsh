@@ -1,17 +1,7 @@
-#导入包
-import os
-import numpy as np
-from PIL import Image
-import random
-from sklearn import metrics
-from sklearn.neighbors import KNeighborsClassifier as KNN 
-import shutil
-import joblib
-import matplotlib.pyplot as plt
 # 对数据进行处理
-# 考虑 train-test 8-2划分， 分割为 : 32:8
+# 考虑 train-test 8-2划分， 分割为 : 400:100
 user_name = ['jia','mu','ri','tian','you','yue','shen']
-path = r'0/0/all1/'
+path = r'1/data/'#在这里输入数据集的路径
 def img2vector(im):
     im = im.convert("L")           #灰度图像信息
     img = np.array(im).flatten()   #展平为一维数组
@@ -35,26 +25,18 @@ def dataload():
                 if not newdict.get(name):
                     newdict.update({name:1})
 
-    else:
-         newdict.update({name:newdict.get(name)+1})
-        # train
-    if newdict.get(name) <= 400:                     # 前8/10
-        trainData[train_num,:] = img2vector(im)
-        train_num += 1
-        trainLabels.append(name)
-        # teste
-    elif newdict.get(name) <=500:                    # 后2/10
-        testData[test_num,:] = img2vector(im)
-        test_num += 1
-        testLabels.append(name)
-    else:
-        pass
+                else:
+                    newdict.update({name:newdict.get(name)+1})
+                    # train
+                if newdict.get(name) <= 400:                     # 前8/10
+                    trainData[train_num,:] = img2vector(im)
+                    train_num += 1
+                    trainLabels.append(name)
+                    # teste
+                elif newdict.get(name) <=500:                    # 后2/10
+                    testData[test_num,:] = img2vector(im)
+                    test_num += 1
+                    testLabels.append(name)
+                else:
+                    pass
     return {'train':trainData, 'trainLabels':trainLabels, 'test':testData, 'testLabels':testLabels}
-
-#获取所有数据
-DATA = dataload()
-#在下面进行数据分类
-train_images = DATA['train']
-test_images = DATA['test']
-train_labels = DATA['trainLabels']
-test_labels = DATA['testLabels']
